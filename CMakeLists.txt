@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.22)
+project(chip8)
+
+set(CMAKE_CXX_STANDARD 20)
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+add_executable(chip8 src/Main.cpp src/Chip8.cpp src/Chip8.h src/Load.cpp src/Window.cpp src/Window.h src/Fetch.cpp src/Decode.cpp src/Emulate.cpp src/Draw.cpp src/Event.cpp)
+target_link_libraries(chip8 ${SDL2_LIBRARIES})
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_COMPILER_LAUNCHER "" CACHE STRING "")
