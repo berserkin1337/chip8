@@ -15,10 +15,10 @@ Chip8::Chip8() {
     // initialize the program counter of the Chip8 which is 2 bytes
     pc = 0x200;
     // initialize the stack of the Chip8 which is 16 bytes
-    stack.push(0);
     // initialize the stack pointer of the Chip8 which is 1 byte
     sp = 0;
     // initialize the delay timer of the Chip8 which is 1 byte
+    stack[sp] = 0;
     delay_timer = 0;
     // initialize the sound timer of the Chip8 which is 1 byte
     sound_timer = 0;
