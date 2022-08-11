@@ -6,12 +6,12 @@
 #include "Window.h"
 void Chip8::emulate() {
     // Fetch the next instruction
-    const int frameDelay = 1000 / 60;
+    const double frameDelay = (1000.0 / 60.0);
     SDL_Event Event;
-    Uint64 frameStart = SDL_GetTicks64();
-    Uint64 frameTime;
+    uint32_t frameStart = SDL_GetTicks();
 
-    while(SDL_PollEvent(&Event)) {
+
+    while (SDL_PollEvent(&Event)) {
         OnEvent(&Event);
     }
 
@@ -22,11 +22,38 @@ void Chip8::emulate() {
 
     // Draw the screen
     draw_graphics();
-    //Check for Events
+    // Check for Events
+    if (delayTimer > 0) {
+        delayTimer--;
+    }
+    if (soundTimer > 0) {
+        soundTimer--;
+    }
 
-    frameTime = SDL_GetTicks64() - frameStart;
-//    if(frameTime < frameDelay) {
+    int frameTime = SDL_GetTicks() - frameStart;
+    std::cout << frameTime - frameDelay << std::endl;
+//    if ((double) frameTime < frameDelay) {
 //        SDL_Delay(frameDelay - frameTime);
 //    }
+}
 
+
+void Chip8::fetch_instruction() {
+    // Read the next two bytes from memory in Big Endian and store them in opcode
+    opcode = (memory[pc] << 8) | (memory[pc + 1]);
+    // Increment the program counter by 2
+    pc += 2;
+}
+
+void Chip8::draw_graphics() {
+    // Draw the screen
+    window.draw(display);
+}
+
+
+void Chip8::load(const std::string &data) {
+    // load the data starting  at memory address 0x200
+    for (int idx = 0; idx < data.size(); ++idx) {
+        memory[idx + 0x200] = data[idx];
+    }
 }

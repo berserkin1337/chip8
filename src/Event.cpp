@@ -9,9 +9,8 @@ void Chip8::OnEvent(SDL_Event *event) {
         case SDL_QUIT:
             closed = true;
             break;
-        case SDL_KEYDOWN:
-        {
-            switch (event->key.keysym.sym){
+        case SDL_KEYDOWN: {
+            switch (event->key.keysym.sym) {
                 case SDLK_ESCAPE:
                     closed = true;
                     break;
@@ -62,94 +61,74 @@ void Chip8::OnEvent(SDL_Event *event) {
                 case SDLK_v:
                     keypad[15] = 1;
                     break;
-
             }
         }
-        case SDL_KEYUP:
-        {
-            switch (event.key.keysym.sym)
-            {
-                case SDLK_x:
-                {
+        case SDL_KEYUP: {
+            switch (event->key.keysym.sym) {
+                case SDLK_x: {
                     keypad[0] = 0;
                 } break;
 
-                case SDLK_1:
-                {
+                case SDLK_1: {
                     keypad[1] = 0;
                 } break;
 
-                case SDLK_2:
-                {
+                case SDLK_2: {
                     keypad[2] = 0;
                 } break;
 
-                case SDLK_3:
-                {
+                case SDLK_3: {
                     keypad[3] = 0;
                 } break;
 
-                case SDLK_q:
-                {
+                case SDLK_q: {
                     keypad[4] = 0;
                 } break;
 
-                case SDLK_w:
-                {
+                case SDLK_w: {
                     keypad[5] = 0;
                 } break;
 
-                case SDLK_e:
-                {
+                case SDLK_e: {
                     keypad[6] = 0;
                 } break;
 
-                case SDLK_a:
-                {
+                case SDLK_a: {
                     keypad[7] = 0;
                 } break;
 
-                case SDLK_s:
-                {
+                case SDLK_s: {
                     keypad[8] = 0;
                 } break;
 
-                case SDLK_d:
-                {
+                case SDLK_d: {
                     keypad[9] = 0;
                 } break;
 
-                case SDLK_z:
-                {
+                case SDLK_z: {
                     keypad[0xA] = 0;
                 } break;
 
-                case SDLK_c:
-                {
+                case SDLK_c: {
                     keypad[0xB] = 0;
                 } break;
 
-                case SDLK_4:
-                {
+                case SDLK_4: {
                     keypad[0xC] = 0;
                 } break;
 
-                case SDLK_r:
-                {
+                case SDLK_r: {
                     keypad[0xD] = 0;
                 } break;
 
-                case SDLK_f:
-                {
+                case SDLK_f: {
                     keypad[0xE] = 0;
                 } break;
 
-                case SDLK_v:
-                {
+                case SDLK_v: {
                     keypad[0xF] = 0;
                 } break;
             }
         } break;
     }
-
-    }
+}
