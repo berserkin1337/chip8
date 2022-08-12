@@ -10,9 +10,10 @@ void Chip8::decode_instruction() {
         case 0x0000:
             switch (opcode) {
                 case 0x00E0:
-                    std::cout << "0x00E0: Clears the screen" << std::endl;
+//                    std::cout << "0x00E0: Clears the screen" << std::endl;
                     // Clear the display
                     memset(display, false, sizeof(display));
+                    drawFlag = true;
                     break;
                 case 0x00EE:
                     // Return from a subroutine
@@ -62,12 +63,9 @@ void Chip8::decode_instruction() {
             switch (opcode & 0x000F) {
                 case 0x0000:
                     // Set Vx to Vy
-                    {
-                        uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-                        uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
-                        V[Vx] = V[Vy];
-                    }
+                    V[(opcode & 0x0F00u) >> 8u] = V[(opcode & 0x00F0u) >> 4u];
+
                     break;
                 case 0x0001: {
                     // Set Vx to Vx OR Vy
@@ -167,13 +165,7 @@ void Chip8::decode_instruction() {
                     }
                 }
             }
-            // Print the display array to stdout
-            //            for (int i = 0; i < 64 * 32; ++i) {
-            //                std::cout << display[i];
-            //                if ((i + 1) % 64 == 0) {
-            //                    std::cout << std::endl;
-            //                }
-            //            }
+            drawFlag = true;
         } break;
         case 0xE000:
             switch (opcode & 0x00FF) {
@@ -182,14 +174,24 @@ void Chip8::decode_instruction() {
                     // Vx is pressed
                     //std::cout<<"0xEx9E: Skip next instruction if key
                     //with the value of Vx is pressed"<<std::endl;
-                    if (keypad[V[(opcode & 0x0F00) >> 8]]) { pc += 2; }
-                    break;
+                    {
+
+                        if (keypad[V[(opcode & 0x0F00u) >> 8u]]) {
+                            pc += 2;
+                        }
+                        break;
+                    }
                 case 0x00A1:
                     // Skip next instruction if key with the value of Vx is not pressed
                     //std::cout<<"0xExA1: Skip next instruction if key
                     //with the value of Vx is not pressed"<<std::endl;
-                    if (!keypad[V[(opcode & 0x0F00u) >> 8u]]) { pc += 2; }
-                    break;
+
+                    {
+                        if (!keypad[V[(opcode & 0x0F00u) >> 8u]]) {
+                            pc += 2;
+                        }
+                        break;
+                    }
             }
             break;
         case 0xF000:
@@ -216,16 +218,75 @@ void Chip8::decode_instruction() {
                     break;
                 case 0x000A: {
                     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-                    bool found = false;
-                    // Wait for a key press, store the value of the key in Vx
-                    for (int i = 0; i < 16; ++i) {
-                        if (keypad[i]) {
-                            V[Vx] = i;
-                            found = true;
-                            break;
-                        }
+
+                    if (keypad[0])
+                    {
+                        V[Vx] = 0;
                     }
-                    if (!found) { pc -= 2; }
+                    else if (keypad[1])
+                    {
+                        V[Vx] = 1;
+                    }
+                    else if (keypad[2])
+                    {
+                        V[Vx] = 2;
+                    }
+                    else if (keypad[3])
+                    {
+                        V[Vx] = 3;
+                    }
+                    else if (keypad[4])
+                    {
+                        V[Vx] = 4;
+                    }
+                    else if (keypad[5])
+                    {
+                        V[Vx] = 5;
+                    }
+                    else if (keypad[6])
+                    {
+                        V[Vx] = 6;
+                    }
+                    else if (keypad[7])
+                    {
+                        V[Vx] = 7;
+                    }
+                    else if (keypad[8])
+                    {
+                        V[Vx] = 8;
+                    }
+                    else if (keypad[9])
+                    {
+                        V[Vx] = 9;
+                    }
+                    else if (keypad[10])
+                    {
+                        V[Vx] = 10;
+                    }
+                    else if (keypad[11])
+                    {
+                        V[Vx] = 11;
+                    }
+                    else if (keypad[12])
+                    {
+                        V[Vx] = 12;
+                    }
+                    else if (keypad[13])
+                    {
+                        V[Vx] = 13;
+                    }
+                    else if (keypad[14])
+                    {
+                        V[Vx] = 14;
+                    }
+                    else if (keypad[15])
+                    {
+                        V[Vx] = 15;
+                    }
+                    else
+                    {
+                        pc -= 2;
+                    }
                 } break;
                 case 0x0029:
                     // set index register to  the address of the hexadecimal character in VX

@@ -13,6 +13,7 @@ class Chip8 {
     // define the memory of the Chip8 which is 4096 bytes
     uint8_t memory[4096]{0};
     // define the registers of the Chip8 which are 16  8-bit registers
+    bool drawFlag{false};
     uint8_t V[16];
     // define the index register of the Chip8 which is 2 bytes. It points to
     // current instruction in memory
@@ -45,7 +46,7 @@ class Chip8 {
             0x10, 0xF0, 0xF0, 0x90, 0xF0, 0x90, 0x90, 0xE0, 0x90, 0xE0, 0x90, 0xE0,
             0xF0, 0x80, 0x80, 0x80, 0xF0, 0xE0, 0x90, 0x90, 0x90, 0xE0, 0xF0, 0x80,
             0xF0, 0x80, 0xF0, 0xF0, 0x80, 0xF0, 0x80, 0x80};
-    void OnEvent(SDL_Event *event);
+//    void OnEvent(SDL_Event *event);
 
 public:
     // define the constructor of the Chip8
@@ -55,9 +56,9 @@ public:
     // define the function to emulate the Chip8
     void emulate();
     // define the function to decrement the delay timer
-    void decrement_delay_timer();
+//    void decrement_delay_timer();
     // define the function to decrement the sound timer
-    void decrement_sound_timer();
+//    void decrement_sound_timer();
     // fetch the instruction pointed to by the program counter
     void fetch_instruction();
     // decode the instruction
